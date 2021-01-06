@@ -46,5 +46,22 @@ router.put ("/api/workouts/:id", (req, res) => {
         });
     });
 });
+router.get("/api/workouts/range", (req, res) => {
+    db.Workout.find({})
+    .limit(10)
+    .sort({day: -1})
+    .then((workoutsInRange) => {
+        res.json(workoutsInRange);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.json({
+          error: true,
+          data: null,
+          message: "Failed to retrieve workout.",
+        });
+      });
+  });
+
 
 module.exports = router;
